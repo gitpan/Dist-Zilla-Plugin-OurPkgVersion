@@ -27,11 +27,13 @@ my %WriteMakefileArgs = (
   'NAME' => 'Dist::Zilla::Plugin::OurPkgVersion',
   'PREREQ_PM' => {
     'Carp' => '0',
+    'Dist::Zilla::Role::FileFinderUser' => '0',
+    'Dist::Zilla::Role::FileMunger' => '0',
     'Moose' => '0',
     'PPI' => '0',
     'namespace::autoclean' => '0'
   },
-  'VERSION' => '0.1.1',
+  'VERSION' => '0.1.2',
   'test' => {
     'TESTS' => 't/*.t'
   }
