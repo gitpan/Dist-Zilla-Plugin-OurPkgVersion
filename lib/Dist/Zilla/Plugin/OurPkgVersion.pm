@@ -1,8 +1,9 @@
+package Dist::Zilla::Plugin::OurPkgVersion;
+use 5.006;
 use strict;
 use warnings;
-package Dist::Zilla::Plugin::OurPkgVersion;
 BEGIN {
-	our $VERSION = 0.1.4;# VERSION
+	our $VERSION = 0.1.5;# VERSION
 }
 use Moose;
 with (
@@ -20,6 +21,7 @@ sub munge_files {
 	my $self = shift;
 
 	$self->munge_file($_) for @{ $self->found_files };
+	return;
 }
 
 sub munge_file {
@@ -27,7 +29,7 @@ sub munge_file {
 
 	my $version = $self->zilla->version;
 
-	croak("invalid characters in version") if $version !~ /\A[.0-9_]+\z/;
+	croak("invalid characters in version") if $version !~ /\A[.0-9_]+\z/xms;
 
 	my $content = $file->content;
 
@@ -38,8 +40,14 @@ sub munge_file {
 
 	if ( ref($comments) eq 'ARRAY' ) {
 		foreach ( @{ $comments } ) {
-			if ( /^(\s*)(#\s+VERSION\b)$/ ) {
-				my $code = "$1" . 'our $VERSION = ' . "$version;$2\n";
+			if ( /^(\s*)(\#\s+VERSION\b)$/xms ) {
+				my ( $ws, $comment ) =  ( $1, $2 );
+				my $code
+						= "$ws"
+						. q{our $VERSION = '}
+						. $version
+						. qq{'; $comment\n}
+						;
 				$_->set_content("$code");
 			}
 		}
@@ -51,6 +59,7 @@ sub munge_file {
 			. ' has no comments, consider adding a "# VERSION" commment'
 			);
 	}
+	return;
 }
 __PACKAGE__->meta->make_immutable;
 1;
@@ -66,7 +75,7 @@ Dist::Zilla::Plugin::OurPkgVersion - no line insertion and does Package version 
 
 =head1 VERSION
 
-version 0.1.4
+version 0.1.5
 
 =head1 SYNOPSIS
 
@@ -104,7 +113,7 @@ in lib/My/Module.pm
 output lib/My/Module.pm
 
 	package My::Module;
-	our $VERSION = 0.01;# VERSION
+	our $VERSION = '0.01'; # VERSION
 	...
 
 please note that whitespace before the comment is significant so
@@ -119,7 +128,7 @@ becomes
 
 	package My::Module;
 	BEGIN {
-		our $VERSION = 0.01;# VERSION
+		our $VERSION = '0.01'; # VERSION
 	}
 	...
 
@@ -135,7 +144,7 @@ becomes
 
 	package My::Module;
 	BEGIN {
-	our $VERSION = 0.01;# VERSION
+	our $VERSION = '0.01'; # VERSION
 	}
 	...
 
@@ -166,11 +175,11 @@ Caleb Cushing <xenoterracide@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2010 by Caleb Cushing.
+This software is Copyright (c) 2011 by Caleb Cushing.
 
 This is free software, licensed under:
 
-  The Artistic License 2.0
+  The Artistic License 2.0 (GPL Compatible)
 
 =cut
 
