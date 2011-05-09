@@ -4,7 +4,7 @@ use warnings;
 
 BEGIN { require 5.006; }
 
-use ExtUtils::MakeMaker 6.31;
+use ExtUtils::MakeMaker 6.30;
 
 
 
@@ -12,15 +12,15 @@ my %WriteMakefileArgs = (
   'ABSTRACT' => 'no line insertion and does Package version with our',
   'AUTHOR' => 'Caleb Cushing <xenoterracide@gmail.com>',
   'BUILD_REQUIRES' => {
-    'Dist::Zilla::Tester' => '0',
     'English' => '0',
     'File::Find' => '0',
     'File::Temp' => '0',
     'Scalar::Util' => '0',
+    'Test::DZil' => '0',
     'Test::More' => '0.94'
   },
   'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.31'
+    'ExtUtils::MakeMaker' => '6.30'
   },
   'DISTNAME' => 'Dist-Zilla-Plugin-OurPkgVersion',
   'EXE_FILES' => [],
@@ -31,10 +31,11 @@ my %WriteMakefileArgs = (
     'Dist::Zilla::Role::FileFinderUser' => '0',
     'Dist::Zilla::Role::FileMunger' => '0',
     'Moose' => '0',
+    'MooseX::Types::Perl' => '0',
     'PPI' => '0',
     'namespace::autoclean' => '0'
   },
-  'VERSION' => '0.1.5',
+  'VERSION' => '0.1.6',
   'test' => {
     'TESTS' => 't/*.t'
   }

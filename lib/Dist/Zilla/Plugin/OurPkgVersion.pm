@@ -3,7 +3,7 @@ use 5.006;
 use strict;
 use warnings;
 BEGIN {
-	our $VERSION = 0.1.5;# VERSION
+	our $VERSION = '0.1.6'; # VERSION
 }
 use Moose;
 with (
@@ -15,6 +15,7 @@ with (
 
 use PPI;
 use Carp qw(croak);
+use MooseX::Types::Perl qw( LaxVersionStr );
 use namespace::autoclean;
 
 sub munge_files {
@@ -29,7 +30,8 @@ sub munge_file {
 
 	my $version = $self->zilla->version;
 
-	croak("invalid characters in version") if $version !~ /\A[.0-9_]+\z/xms;
+	croak("invalid characters in version")
+		unless LaxVersionStr->check( $version );
 
 	my $content = $file->content;
 
@@ -75,7 +77,7 @@ Dist::Zilla::Plugin::OurPkgVersion - no line insertion and does Package version 
 
 =head1 VERSION
 
-version 0.1.5
+version 0.1.6
 
 =head1 SYNOPSIS
 
