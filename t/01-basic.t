@@ -3,10 +3,14 @@ use strict;
 use warnings;
 use Test::More;
 use Test::DZil;
+use Test::Version qw( version_ok );
 
 my $tzil = Builder->from_config({ dist_root => 'corpus/DZT' });
 
 $tzil->build;
+
+version_ok( $tzil->tempdir->file('build/lib/DZT0.pm'));
+version_ok( $tzil->tempdir->file('build/lib/DZT1.pm'));
 
 my $lib_0 = $tzil->slurp_file('build/lib/DZT0.pm');
 my $lib_1 = $tzil->slurp_file('build/lib/DZT1.pm');

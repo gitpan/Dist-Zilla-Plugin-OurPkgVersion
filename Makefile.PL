@@ -17,7 +17,8 @@ my %WriteMakefileArgs = (
     'File::Temp' => '0',
     'Scalar::Util' => '0',
     'Test::DZil' => '0',
-    'Test::More' => '0.94'
+    'Test::More' => '0.94',
+    'Test::Version' => '0'
   },
   'CONFIGURE_REQUIRES' => {
     'ExtUtils::MakeMaker' => '6.30'
@@ -35,7 +36,7 @@ my %WriteMakefileArgs = (
     'PPI' => '0',
     'namespace::autoclean' => '0'
   },
-  'VERSION' => '0.1.6',
+  'VERSION' => '0.1.7',
   'test' => {
     'TESTS' => 't/*.t'
   }
