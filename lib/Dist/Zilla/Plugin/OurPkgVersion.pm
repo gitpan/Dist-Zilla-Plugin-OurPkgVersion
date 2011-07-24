@@ -3,7 +3,7 @@ use 5.006;
 use strict;
 use warnings;
 BEGIN {
-	our $VERSION = '0.1.8'; # VERSION
+	our $VERSION = '0.1.9'; # VERSION
 }
 use Moose;
 with (
@@ -40,6 +40,7 @@ sub munge_file {
 
 	my $comments = $doc->find('PPI::Token::Comment');
 
+	my $munged_version = 0;
 	if ( ref($comments) eq 'ARRAY' ) {
 		foreach ( @{ $comments } ) {
 			if ( /^(\s*)(\#\s+VERSION\b)$/xms ) {
@@ -51,15 +52,15 @@ sub munge_file {
 						. qq{'; $comment\n}
 						;
 				$_->set_content("$code");
+				$file->content( $doc->serialize );
+				$munged_version++;
 			}
 		}
-		$file->content( $doc->serialize );
 	}
-	else {
+
+	unless ( $munged_version ) {
 		my $fn = $file->name;
-		$self->log( "File: $fn"
-			. ' has no comments, consider adding a "# VERSION" commment'
-			);
+		$self->log( "Skipping $fn" . ': has no "# VERSION" comment' );
 	}
 	return;
 }
@@ -77,7 +78,7 @@ Dist::Zilla::Plugin::OurPkgVersion - no line insertion and does Package version 
 
 =head1 VERSION
 
-version 0.1.8
+version 0.1.9
 
 =head1 SYNOPSIS
 
@@ -170,6 +171,15 @@ the number of files to search to only be modules and executables.
 tells which files to munge, see L<Dist::Zilla::Role::FileMunger>
 
 =back
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+http://github.com/xenoterracide/Dist-Zilla-Plugin-OurPkgVersion/issues
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
 
 =head1 AUTHOR
 

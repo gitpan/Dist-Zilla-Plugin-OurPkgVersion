@@ -3,7 +3,7 @@ NAME
     version with our
 
 VERSION
-    version 0.1.8
+    version 0.1.9
 
 SYNOPSIS
     in dist.ini
@@ -88,6 +88,13 @@ METHODS
 
     munge_file
         tells which files to munge, see Dist::Zilla::Role::FileMunger
+
+BUGS
+    Please report any bugs or feature requests on the bugtracker website
+    http://github.com/xenoterracide/Dist-Zilla-Plugin-OurPkgVersion/issues
+
+    When submitting a bug or request, please include a test-file or a patch
+    to an existing test-file that illustrates the bug or desired feature.
 
 AUTHOR
     Caleb Cushing <xenoterracide@gmail.com>
