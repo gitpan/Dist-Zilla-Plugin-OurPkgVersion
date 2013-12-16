@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = '0.005000'; # VERSION
+our $VERSION = '0.005001'; # VERSION
 
 use Moose;
 with (
@@ -110,7 +110,7 @@ Dist::Zilla::Plugin::OurPkgVersion - no line insertion and does Package version 
 
 =head1 VERSION
 
-version 0.005000
+version 0.005001
 
 =head1 SYNOPSIS
 
@@ -232,6 +232,32 @@ https://github.com/xenoterracide/dist-zilla-plugin-ourpkgversion/issues
 When submitting a bug or request, please include a test-file or a
 patch to an existing test-file that illustrates the bug or desired
 feature.
+
+=head1 CONTRIBUTORS
+
+=over 4
+
+=item *
+
+Alexandr Ciornii <alexchorny@gmail.com>
+
+=item *
+
+Alexei Znamensky <russoz@cpan.org>
+
+=item *
+
+Christian Walde <walde.christian@googlemail.com>
+
+=item *
+
+Christopher J. Madsen <perl@cjmweb.net>
+
+=item *
+
+David Golden <dagolden@cpan.org>
+
+=back
 
 =head1 AUTHOR
 
